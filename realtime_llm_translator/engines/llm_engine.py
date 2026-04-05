@@ -12,11 +12,16 @@ from transformers import (
     MarianTokenizer,
     M2M100ForConditionalGeneration,
     M2M100Tokenizer,
-    NllbForConditionalGeneration,
     NllbTokenizer,
     pipeline,
     Pipeline,
 )
+# Handle different transformers versions for NLLB model class
+try:
+    from transformers import NllbForConditionalGeneration
+except ImportError:
+    # For newer transformers versions, use AutoModelForSeq2SeqLM for NLLB
+    NllbForConditionalGeneration = AutoModelForSeq2SeqLM
 from typing import Optional, Dict, List, Generator, Tuple, Union
 from abc import ABC, abstractmethod
 import time

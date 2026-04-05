@@ -18,6 +18,8 @@ from ..engines.llm_engine import LLMTranslationEngine, TranslationResult
 from ..engines.voice_engine import VoiceProcessingEngine, TranscriptionResult, SpeechGenerationResult
 from ..engines.streaming_engine import StreamingEngine, StreamConfig, AudioChunk
 
+# Import PipelineMode from local definition (it's defined in this module)
+
 
 class PipelineMode(Enum):
     """Translation pipeline modes"""

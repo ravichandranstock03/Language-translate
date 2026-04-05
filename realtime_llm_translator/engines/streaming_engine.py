@@ -4,7 +4,7 @@ Handles audio buffering, voice activity detection, and low-latency streaming
 """
 
 import numpy as np
-from typing import Optional, Dict, List, Generator, Callable, Tuple
+from typing import Optional, Dict, List, Generator, Callable, Tuple, AsyncGenerator
 from dataclasses import dataclass, field
 import threading
 from queue import Queue, Empty
