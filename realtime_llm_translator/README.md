@@ -70,7 +70,9 @@ realtime_llm_translator/
 
 ## 💻 Usage
 
-### Quick Start - Text Translation
+### 🎯 Option A: Inference with Pre-trained Models
+
+#### Quick Start - Text Translation
 
 ```python
 from realtime_llm_translator import TranslationPipeline, PipelineMode, Config
@@ -100,6 +102,41 @@ result = pipeline.translate_text(
 print(f"Translation: {result.translated_text}")
 print(f"Latency: {result.total_latency_ms:.2f}ms")
 ```
+
+### 🎯 Option B: Train Your Custom LLM Model (.safetensors)
+
+Create a custom fine-tuned translation model using Google Colab's free GPU/TPU resources.
+
+#### Step 1: Open the Colab Notebook
+1. Go to [Google Colab](https://colab.research.google.com/)
+2. Upload `colab_training_notebook.ipynb` from this repository
+3. Select **Runtime > Change runtime type > GPU** (T4/V100/A100)
+
+#### Step 2: Configure & Run
+- Modify the `config` dictionary to select your language pair (e.g., `eng_Latn` → `spa_Latn`)
+- Click **Runtime > Run All**
+- Training takes ~30-60 minutes on free tier
+
+#### Step 3: Download Your Model
+- The notebook automatically merges LoRA weights and exports `model.safetensors`
+- Final cell downloads a zip file with your complete custom model
+
+#### Step 4: Use Your Custom Model
+```python
+from realtime_llm_translator import TranslationPipeline, Config
+
+config = Config(
+    source_language="eng_Latn",
+    target_language="spa_Latn",
+    model_path="./custom_translator_model_final",  # Path to your trained model
+)
+
+pipeline = TranslationPipeline(config=config)
+result = pipeline.translate_text("Hello world")
+print(result.translated_text)
+```
+
+📖 **Complete Training Guide**: See [`COLAB_TRAINING_GUIDE.md`](COLAB_TRAINING_GUIDE.md) for detailed instructions, hyperparameter tuning, and troubleshooting.
 
 ### Speech-to-Speech Translation
 
